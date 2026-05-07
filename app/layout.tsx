@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 export default function RootLayout({ children }: any) {
   return (
     <html lang="pt">
-      <body className="pt-20">
+      <body className="m-0 p-0">
         {" "}
         {/* espaço para navbar fixa */}
         <Navbar />

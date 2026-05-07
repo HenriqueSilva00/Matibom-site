@@ -25,28 +25,28 @@ export default function Dropdown() {
           <div className="absolute top-full left-0 mt-3 w-56 bg-white border border-gray-200 shadow-lg rounded-md overflow-hidden z-50">
             <Link
               href="/certificacoes"
-              className="block px-4 py-3 hover:bg-red-50 hover:text-red-600 transition"
+              className="block px-4 py-3 text-black hover:bg-red-600 transition"
             >
               Certificações
             </Link>
 
             <Link
               href="/instalacoes"
-              className="block px-4 py-3 hover:bg-red-50 hover:text-red-600 transition"
+              className="block px-4 py-3 text-black hover:bg-red-600 transition"
             >
               Instalações
             </Link>
 
             <Link
               href="/clientes"
-              className="block px-4 py-3 hover:bg-red-50 hover:text-red-600 transition"
+              className="block px-4 py-3 text-black hover:bg-red-600 transition"
             >
               Clientes / Parceiros
             </Link>
 
             <Link
               href="/logistica"
-              className="block px-4 py-3 hover:bg-red-50 hover:text-red-600 transition"
+              className="block px-4 py-3 text-black hover:bg-red-600 transition"
             >
               Logística e Distribuição
             </Link>
