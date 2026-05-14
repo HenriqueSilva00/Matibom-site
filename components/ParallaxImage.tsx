@@ -4,42 +4,47 @@ import { useEffect, useState } from "react";
 
 export default function ParallaxImage() {
   const [offset, setOffset] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setOffset(window.scrollY * 0.18);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
     };
 
+    const handleScroll = () => {
+      setOffset(window.scrollY * (isMobile ? 0.08 : 0.18));
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll);
 
     return () => {
+      window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
-    <section className="relative w-full h-[650px] mt-30 overflow-hidden">
-      {/* IMAGEM */}
-      <img
-        src="/assets/parallax.jpg"
-        alt="MATIBOM"
-        className="
-          absolute
-          top-0
-          left-0
-          w-full
-          h-[1100px]
-          object-cover
-          grayscale
-          brightness-90
-          contrast-90
-          saturate-0
-          opacity-90
-        "
-        style={{
-          transform: `translateY(-${offset}px)`,
-        }}
-      />
+    <section
+      className="
+        relative
+        w-full
+        overflow-hidden
+        bg-cover
+        bg-no-repeat
+        mt-25
+        h-[420px]
+        md:h-[650px]
+        grayscale-0 md:grayscale
+      "
+      style={{
+        backgroundImage: "url('/assets/parallax.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: isMobile ? "center 40%" : "center 80%",
+      }}
+    >
+      <div className="absolute inset-0 bg-black/20" />
     </section>
   );
 }

@@ -10,7 +10,7 @@ export default function NavLink({ href, children, textColor }: any) {
   return (
     <Link
       href={href}
-      className={`relative inline-block group text-[17px] font-medium transition-colors duration-300 ${
+      className={`relative inline-block group text-[17px] transition-colors duration-300 ${
         isActive ? "text-red-600 font-semibold" : textColor
       }`}
     >

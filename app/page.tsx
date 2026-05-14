@@ -8,6 +8,7 @@ import {
   IconTruckDelivery,
   IconToolsKitchen2,
 } from "@tabler/icons-react";
+import AnimalSeletion from "@/components/AnimalSeletion";
 
 export default function Home() {
   return (
@@ -19,8 +20,8 @@ export default function Home() {
       <section className="w-full bg-white py-24 px-6">
         <div className="max-w-6xl mx-auto">
           {/* TEXTO */}
-          <div className="text-center max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-8">
+          <div className="text-center w-full lg:w-[100%] mx-auto">
+            <h2 className="text-4xl md:text-6xl font-semibold text-gray-900 mb-8">
               O que é a <span className="text-red-600">Matibom</span>?
             </h2>
 
@@ -39,7 +40,7 @@ export default function Home() {
               padrões de qualidade.
             </p>
 
-            <p className="text-gray-600 text-lg leading-relaxed mb-10">
+            <p className="hidden md:block text-gray-600 text-lg leading-relaxed mb-10">
               Atualmente, a MATIBOM afirma-se como uma referência no mercado
               nacional, oferecendo soluções completas na área das carnes e
               charcutaria, sempre com um compromisso constante com a excelência,
@@ -146,7 +147,7 @@ export default function Home() {
 
       <ParallaxImage />
 
-      <section className="h-screen w-full"></section>
+      <AnimalSeletion />
     </main>
   );
 }

@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import NavLink from "./Navlink";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -22,6 +23,7 @@ export default function Navbar() {
   const [showNavbar, setShowNavbar] = useState(true);
   const [atTop, setAtTop] = useState(true);
   const textColor = isHome && atTop ? "text-white" : "text-black";
+
   const logoSrc =
     isHome && atTop ? "/assets/logoBranco.png" : "/assets/logoPreto.png";
 
@@ -62,7 +64,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         showNavbar ? "translate-y-0" : "-translate-y-full"
       } ${
         isHome && atTop
@@ -70,8 +72,10 @@ export default function Navbar() {
           : "bg-white shadow-md border-b border-gray-200"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
-        {/* LOGO */}
+      <div className="max-w-7xl mx-auto px-0 py-4 md:py-2 flex justify-between items-center">
+        {/* =========================
+        LOGO
+    ========================= */}
         <Link
           href="/"
           className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 flex items-center leading-none"
@@ -79,113 +83,164 @@ export default function Navbar() {
           <Image
             src={logoSrc}
             alt="MATIBOM"
-            width={220}
-            height={90}
+            width={320}
+            height={140}
             priority
             className="
-    h-16
-    md:h-[72px]
-    lg:h-20
-    w-auto
-    object-contain
-    transition-opacity
-    duration-300
-    select-none
-  "
+              h-14
+              md:h-[95px]
+              lg:h-[100px]
+              w-auto
+              object-contain
+              transition-all
+              duration-500
+              select-none
+            "
           />
         </Link>
 
-        {/* DESKTOP */}
+        {/* =========================
+        DESKTOP NAVBAR
+    ========================= */}
         <nav
-          className={`hidden md:flex items-center gap-8 text-[17px] font-medium ${textColor}`}
+          className={`hidden md:flex items-center gap-12 text-[17px] ${textColor}`}
         >
           <NavLink className={linkClass("/")} href="/">
             Home
           </NavLink>
+
           <NavLink href="/sobre">Sobre</NavLink>
 
-          {/* DROPDOWN DESKTOP OVERLAY */}
+          {/* DESKTOP DROPDOWN */}
           <div
             className="relative inline-block"
             onMouseEnter={() => setEmpresaDesktopOpen(true)}
             onMouseLeave={() => setEmpresaDesktopOpen(false)}
           >
-            {/* BOTÃO */}
             <button
               className={`${textColor} hover:text-red-600 transition flex items-center gap-1`}
             >
-              Empresa <span className="text-red-600 text-xs">▾</span>
+              Empresa
+              <ChevronDown
+                className={`w-5 h-5 text-red-600 transition-transform duration-300 transform-gpu ${
+                  empresaDesktopOpen ? "rotate-180" : "rotate-0"
+                }`}
+                style={{ backfaceVisibility: "hidden" }}
+              />
             </button>
 
-            {/* DROPDOWN */}
-            {empresaDesktopOpen && (
-              <div className="absolute top-full left-0 pt-2 w-56 z-50">
-                <div className="bg-white border border-gray-200 shadow-lg rounded-md overflow-hidden">
-                  <Link
-                    className="block px-4 py-3 text-black hover:bg-red-50 hover:text-red-600"
-                    href="/certificacoes"
-                  >
-                    Certificações
-                  </Link>
+            <AnimatePresence>
+              {empresaDesktopOpen && (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    y: 10,
+                    scale: 0.98,
+                    filter: "blur(4px)",
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    filter: "blur(0px)",
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: 8,
+                    scale: 0.98,
+                    filter: "blur(4px)",
+                  }}
+                  transition={{
+                    duration: 0.25,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="absolute top-full left-0 pt-3 w-64 z-50"
+                >
+                  <div className="bg-white/90 backdrop-blur-xl border border-white/30 shadow-2xl rounded-2xl overflow-hidden">
+                    <Link
+                      className="block px-5 py-4 text-black hover:bg-red-50 hover:text-red-600 transition"
+                      href="/empresa/certificacoes"
+                    >
+                      Certificações
+                    </Link>
 
-                  <Link
-                    className="block px-4 py-3 text-black hover:bg-red-50 hover:text-red-600"
-                    href="/instalacoes"
-                  >
-                    Instalações
-                  </Link>
+                    <Link
+                      className="block px-5 py-4 text-black hover:bg-red-50 hover:text-red-600 transition"
+                      href="/instalacoes"
+                    >
+                      Instalações
+                    </Link>
 
-                  <Link
-                    className="block px-4 py-3 text-black hover:bg-red-50 hover:text-red-600"
-                    href="/clientes"
-                  >
-                    Clientes / Parceiros
-                  </Link>
+                    <Link
+                      className="block px-5 py-4 text-black hover:bg-red-50 hover:text-red-600 transition"
+                      href="/clientes"
+                    >
+                      Clientes / Parceiros
+                    </Link>
 
-                  <Link
-                    className="block px-4 py-3 text-black hover:bg-red-50 hover:text-red-600"
-                    href="/logistica"
-                  >
-                    Logística e Distribuição
-                  </Link>
-                </div>
-              </div>
-            )}
+                    <Link
+                      className="block px-5 py-4 text-black hover:bg-red-50 hover:text-red-600 transition"
+                      href="/logistica"
+                    >
+                      Logística e Distribuição
+                    </Link>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           <NavLink className={linkClass("/servicos")} href="/servicos">
             Serviços
           </NavLink>
+
           <NavLink className={linkClass("/contactos")} href="/contactos">
             Contactos
           </NavLink>
         </nav>
 
-        {/* MOBILE BUTTON */}
+        {/* =========================
+        MOBILE MENU BUTTON
+    ========================= */}
         <button
-          className="md:hidden relative w-10 h-10 flex items-center justify-center"
+          className={`md:hidden relative w-10 h-10 flex items-center justify-center transition-colors duration-300 ${
+            isHome && atTop ? "text-white" : "text-black"
+          }`}
           onClick={() => {
             setMobileOpen(!mobileOpen);
+
             if (mobileOpen) setEmpresaMobileOpen(false);
           }}
         >
           {/* MENU ICON */}
           <span
-            className={`absolute transition-all duration-200 ease-in-out ${
+            className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out transform-gpu backface-hidden ${
               mobileOpen
-                ? "opacity-0 scale-75 rotate-90"
-                : "opacity-100 scale-100"
+                ? "opacity-0 scale-75 rotate-90 pointer-events-none"
+                : "opacity-100 scale-100 rotate-0"
             }`}
+            style={{ backfaceVisibility: "hidden" }}
           >
             <Menu />
           </span>
 
-          {/* X ICON */}
           <span
-            className={`absolute transition-all duration-200 ease-in-out ${
+            className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out transform-gpu backface-hidden ${
               mobileOpen
-                ? "opacity-100 scale-100"
-                : "opacity-0 scale-75 rotate-90"
+                ? "opacity-100 scale-100 rotate-0"
+                : "opacity-0 scale-75 rotate-90 pointer-events-none"
+            }`}
+            style={{ backfaceVisibility: "hidden" }}
+          >
+            <X />
+          </span>
+
+          {/* CLOSE ICON */}
+          <span
+            className={`absolute inset-0 flex items-center justify-center transition-all duration-200 ease-in-out ${
+              mobileOpen
+                ? "opacity-100 scale-100 rotate-0"
+                : "opacity-0 scale-75 rotate-90 pointer-events-none"
             }`}
           >
             <X />
@@ -193,14 +248,21 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* MOBILE MENU */}
+      {/* =========================
+      MOBILE MENU
+  ========================= */}
       {mobileOpen && (
         <div className="md:hidden px-6 pb-6 space-y-3 text-[17px]">
-          <Link className={linkClass("/")} href="/" onClick={closeMobileMenu}>
+          <Link
+            className={`${linkClass("/")} !text-black`}
+            href="/"
+            onClick={closeMobileMenu}
+          >
             Home
           </Link>
+
           <Link
-            className={linkClass("/sobre")}
+            className={`${linkClass("/sobre")} !text-black`}
             href="/sobre"
             onClick={closeMobileMenu}
           >
@@ -211,77 +273,66 @@ export default function Navbar() {
           <div>
             <button
               onClick={() => setEmpresaMobileOpen(!empresaMobileOpen)}
-              className="flex items-center gap-1 text-white"
+              className="flex items-center gap-1 text-black"
             >
-              Empresa <span className="text-red-600">▾</span>
+              Empresa <ChevronDown className="w-4 h-4 text-red-600" />
             </button>
 
             <div
               className={`
-    mt-3 pl-4  space-y-2 overflow-hidden
-    transition-all duration-300 ease-in-out
-    ${
-      empresaMobileOpen
-        ? "max-h-60 opacity-100"
-        : "max-h-0 opacity-0 pointer-events-none"
-    }
-  `}
+            mt-3 pl-4 space-y-2 overflow-hidden
+            transition-all duration-300 ease-in-out
+            ${
+              empresaMobileOpen
+                ? "max-h-60 opacity-100"
+                : "max-h-0 opacity-0 pointer-events-none"
+            }
+          `}
             >
-              <div
-                className={`
-                mt-3 pl-4 space-y-2 overflow-hidden
-                transition-all duration-300 ease-in-out
-                ${
-                  empresaMobileOpen
-                    ? "max-h-60 opacity-100"
-                    : "max-h-0 opacity-0"
-                }
-              `}
+              <Link
+                className="block text-[17px] text-black hover:text-red-600 transition"
+                href="/empresa/certificacoes"
+                onClick={closeMobileMenu}
               >
-                <Link
-                  className="block text-[17px] text-white hover:text-red-600 transition"
-                  href="/certificacoes"
-                  onClick={closeMobileMenu}
-                >
-                  - Certificações
-                </Link>
+                - Certificações
+              </Link>
 
-                <Link
-                  className="block mt-4 text-[17px] text-white hover:text-red-600 transition"
-                  href="/instalacoes"
-                  onClick={closeMobileMenu}
-                >
-                  - Instalações
-                </Link>
+              <Link
+                className="block mt-4 text-[17px] text-black hover:text-red-600 transition"
+                href="/instalacoes"
+                onClick={closeMobileMenu}
+              >
+                - Instalações
+              </Link>
 
-                <Link
-                  className="block mt-4 text-[17px] text-white hover:text-red-600 transition"
-                  href="/clientes"
-                  onClick={closeMobileMenu}
-                >
-                  - Clientes
-                </Link>
+              <Link
+                className="block mt-4 text-[17px] text-black hover:text-red-600 transition"
+                href="/clientes"
+                onClick={closeMobileMenu}
+              >
+                - Clientes
+              </Link>
 
-                <Link
-                  className="block mt-4 text-[17px] text-white hover:text-red-600 transition"
-                  href="/logistica"
-                  onClick={closeMobileMenu}
-                >
-                  - Logística
-                </Link>
-              </div>
+              <Link
+                className="block mt-4 text-[17px] text-black hover:text-red-600 transition"
+                href="/logistica"
+                onClick={closeMobileMenu}
+              >
+                - Logística
+              </Link>
             </div>
           </div>
 
           <Link
-            className={linkClass("/servicos")}
+            className={`${linkClass("/servicos")} !text-black`}
             href="/servicos"
             onClick={closeMobileMenu}
           >
             Serviços
           </Link>
+
           <Link
-            className={linkClass("/contactos")}
+            className={`${linkClass("/contactos")} !text-black`}
             href="/contactos"
             onClick={closeMobileMenu}
           >
