@@ -31,6 +31,19 @@ export default function ClientesParceiros() {
     }, 5000);
   };
 
+  const [itemsPerView, setItemsPerView] = useState(4);
+
+  useEffect(() => {
+    const update = () => {
+      setItemsPerView(window.innerWidth < 768 ? 1 : 4);
+    };
+
+    update();
+    window.addEventListener("resize", update);
+
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
   // subtle auto motion (premium feel)
   useEffect(() => {
     startAutoPlay();
@@ -86,7 +99,7 @@ export default function ClientesParceiros() {
         <div className="overflow-hidden w-full px-16 md:px-10">
           <motion.div
             animate={{
-              x: `-${index * (100 / (window.innerWidth < 768 ? 1 : 4))}%`,
+              x: `-${index * (100 / itemsPerView)}%`,
             }}
             transition={{
               type: "tween",
