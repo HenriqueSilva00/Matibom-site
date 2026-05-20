@@ -25,12 +25,17 @@ export default function Navbar() {
   const textColor = isHome && atTop ? "text-white" : "text-black";
 
   const logoSrc =
-    isHome && atTop ? "/assets/logoBranco.png" : "/assets/logoPreto.png";
+    isHome && atTop && !mobileOpen
+      ? "/assets/logoBranco.png"
+      : "/assets/logoPreto.png";
 
   const linkClass = (href: string) =>
     `block py-2 transition ${
       pathname === href ? "text-red-600 font-semibold" : "text-white"
     }`;
+
+  const navIsTransparent = isHome && atTop && !mobileOpen;
+  const [menuMounted, setMenuMounted] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +45,18 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      setMenuMounted(true);
+    } else {
+      const timeout = setTimeout(() => {
+        setMenuMounted(false);
+      }, 500); // igual à duração da animação
+
+      return () => clearTimeout(timeout);
+    }
+  }, [mobileOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,13 +79,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "auto";
+  }, [mobileOpen]);
+
   return (
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         showNavbar ? "translate-y-0" : "-translate-y-full"
       } ${
-        isHome && atTop
-          ? "bg-transparent"
+        isHome && atTop && !mobileOpen
+          ? "bg-transparent md:bg-transparent"
           : "bg-white shadow-md border-b border-gray-200"
       }`}
     >
@@ -166,23 +187,23 @@ export default function Navbar() {
 
                     <Link
                       className="block px-5 py-4 text-black hover:bg-red-50 hover:text-red-600 transition"
-                      href="/instalacoes"
+                      href="/empresa/instalacoes"
                     >
                       Instalações
                     </Link>
 
                     <Link
                       className="block px-5 py-4 text-black hover:bg-red-50 hover:text-red-600 transition"
-                      href="/clientes"
+                      href="/empresa/parceiros"
                     >
-                      Clientes / Parceiros
+                      Clientes & Parceiros
                     </Link>
 
                     <Link
                       className="block px-5 py-4 text-black hover:bg-red-50 hover:text-red-600 transition"
-                      href="/logistica"
+                      href="/empresa/logistica"
                     >
-                      Logística e Distribuição
+                      Distribuição & Logística
                     </Link>
                   </div>
                 </motion.div>
@@ -204,40 +225,27 @@ export default function Navbar() {
     ========================= */}
         <button
           className={`md:hidden relative w-10 h-10 flex items-center justify-center transition-colors duration-300 ${
-            isHome && atTop ? "text-white" : "text-black"
+            navIsTransparent ? "text-white" : "text-black"
           }`}
           onClick={() => {
             setMobileOpen(!mobileOpen);
-
             if (mobileOpen) setEmpresaMobileOpen(false);
           }}
         >
           {/* MENU ICON */}
           <span
-            className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out transform-gpu backface-hidden ${
+            className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out ${
               mobileOpen
                 ? "opacity-0 scale-75 rotate-90 pointer-events-none"
                 : "opacity-100 scale-100 rotate-0"
             }`}
-            style={{ backfaceVisibility: "hidden" }}
           >
             <Menu />
           </span>
 
-          <span
-            className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out transform-gpu backface-hidden ${
-              mobileOpen
-                ? "opacity-100 scale-100 rotate-0"
-                : "opacity-0 scale-75 rotate-90 pointer-events-none"
-            }`}
-            style={{ backfaceVisibility: "hidden" }}
-          >
-            <X />
-          </span>
-
           {/* CLOSE ICON */}
           <span
-            className={`absolute inset-0 flex items-center justify-center transition-all duration-200 ease-in-out ${
+            className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out ${
               mobileOpen
                 ? "opacity-100 scale-100 rotate-0"
                 : "opacity-0 scale-75 rotate-90 pointer-events-none"
@@ -252,34 +260,42 @@ export default function Navbar() {
       MOBILE MENU
   ========================= */}
       {mobileOpen && (
-        <div className="md:hidden px-6 pb-6 space-y-3 text-[17px]">
-          <Link
-            className={`${linkClass("/")} !text-black`}
-            href="/"
-            onClick={closeMobileMenu}
-          >
-            Home
-          </Link>
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            mobileOpen
+              ? "max-h-[600px] opacity-100 translate-y-0"
+              : "max-h-0 opacity-0 -translate-y-2"
+          }`}
+        >
+          {menuMounted && (
+            <div className="px-6 pb-6 space-y-3 text-[17px]">
+              <Link
+                className={`${linkClass("/")} !text-black`}
+                href="/"
+                onClick={closeMobileMenu}
+              >
+                Home
+              </Link>
 
-          <Link
-            className={`${linkClass("/sobre")} !text-black`}
-            href="/sobre"
-            onClick={closeMobileMenu}
-          >
-            Sobre
-          </Link>
+              <Link
+                className={`${linkClass("/sobre")} !text-black`}
+                href="/sobre"
+                onClick={closeMobileMenu}
+              >
+                Sobre
+              </Link>
 
-          {/* MOBILE DROPDOWN */}
-          <div>
-            <button
-              onClick={() => setEmpresaMobileOpen(!empresaMobileOpen)}
-              className="flex items-center gap-1 text-black"
-            >
-              Empresa <ChevronDown className="w-4 h-4 text-red-600" />
-            </button>
+              {/* MOBILE DROPDOWN */}
+              <div>
+                <button
+                  onClick={() => setEmpresaMobileOpen(!empresaMobileOpen)}
+                  className="flex items-center gap-1 text-black"
+                >
+                  Empresa <ChevronDown className="w-4 h-4 text-red-600" />
+                </button>
 
-            <div
-              className={`
+                <div
+                  className={`
             mt-3 pl-4 space-y-2 overflow-hidden
             transition-all duration-300 ease-in-out
             ${
@@ -288,56 +304,58 @@ export default function Navbar() {
                 : "max-h-0 opacity-0 pointer-events-none"
             }
           `}
-            >
+                >
+                  <Link
+                    className="block text-[17px] text-black hover:text-red-600 transition"
+                    href="/empresa/certificacoes"
+                    onClick={closeMobileMenu}
+                  >
+                    - Certificações
+                  </Link>
+
+                  <Link
+                    className="block mt-4 text-[17px] text-black hover:text-red-600 transition"
+                    href="/empresa/instalacoes"
+                    onClick={closeMobileMenu}
+                  >
+                    - Instalações
+                  </Link>
+
+                  <Link
+                    className="block mt-4 text-[17px] text-black hover:text-red-600 transition"
+                    href="/empresa/parceiros"
+                    onClick={closeMobileMenu}
+                  >
+                    - Clientes & Parceiros
+                  </Link>
+
+                  <Link
+                    className="block mt-4 text-[17px] text-black hover:text-red-600 transition"
+                    href="/empresa/logistica"
+                    onClick={closeMobileMenu}
+                  >
+                    - Distribuição & Logística
+                  </Link>
+                </div>
+              </div>
+
               <Link
-                className="block text-[17px] text-black hover:text-red-600 transition"
-                href="/empresa/certificacoes"
+                className={`${linkClass("/servicos")} !text-black`}
+                href="/servicos"
                 onClick={closeMobileMenu}
               >
-                - Certificações
+                Serviços
               </Link>
 
               <Link
-                className="block mt-4 text-[17px] text-black hover:text-red-600 transition"
-                href="/instalacoes"
+                className={`${linkClass("/contactos")} !text-black`}
+                href="/contactos"
                 onClick={closeMobileMenu}
               >
-                - Instalações
-              </Link>
-
-              <Link
-                className="block mt-4 text-[17px] text-black hover:text-red-600 transition"
-                href="/clientes"
-                onClick={closeMobileMenu}
-              >
-                - Clientes
-              </Link>
-
-              <Link
-                className="block mt-4 text-[17px] text-black hover:text-red-600 transition"
-                href="/logistica"
-                onClick={closeMobileMenu}
-              >
-                - Logística
+                Contactos
               </Link>
             </div>
-          </div>
-
-          <Link
-            className={`${linkClass("/servicos")} !text-black`}
-            href="/servicos"
-            onClick={closeMobileMenu}
-          >
-            Serviços
-          </Link>
-
-          <Link
-            className={`${linkClass("/contactos")} !text-black`}
-            href="/contactos"
-            onClick={closeMobileMenu}
-          >
-            Contactos
-          </Link>
+          )}
         </div>
       )}
     </header>

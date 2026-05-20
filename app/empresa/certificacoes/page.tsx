@@ -49,12 +49,11 @@ export default function CertificacoesPage() {
           <span className="inline-flex items-center px-4 py-2 rounded-full bg-red-50 text-red-600 text-sm font-medium border border-red-100 mb-8">
             Qualidade • Segurança • Confiança
           </span>
-
-          <h1 className="text-5xl md:text-7xl font-semibold tracking-tight text-gray-900 leading-tight">
+          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-gray-900 leading-tight">
             Certificações
           </h1>
 
-          <p className="mt-8 text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          <p className="mt-6 text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
             A MATIBOM segue rigorosos padrões de qualidade e segurança
             alimentar, garantindo processos certificados, rastreabilidade e
             conformidade com as normas nacionais e internacionais do setor.

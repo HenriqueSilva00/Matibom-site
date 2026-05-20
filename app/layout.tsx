@@ -9,7 +9,7 @@ export default function RootLayout({ children }: any) {
         {" "}
         {/* espaço para navbar fixa */}
         <Navbar />
-        <main className="min-h-screen">{children}</main>
+        <main className="min-h-auto md:min-h-screen">{children}</main>
         <Footer />
       </body>
     </html>
