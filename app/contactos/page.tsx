@@ -30,6 +30,7 @@ const locations = [
 export default function Contactos() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -181,6 +182,7 @@ export default function Contactos() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="p-3 rounded-lg border border-gray-200 focus:border-red-500 focus:ring-2 focus:ring-red-100 outline-none transition"
+                required
               />
 
               <input
@@ -189,6 +191,7 @@ export default function Contactos() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="p-3 rounded-lg border border-gray-200 focus:border-red-500 focus:ring-2 focus:ring-red-100 outline-none transition"
+                required
               />
 
               <input
@@ -197,6 +200,7 @@ export default function Contactos() {
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 className="md:col-span-2 p-3 rounded-lg border border-gray-200 focus:border-red-500 focus:ring-2 focus:ring-red-100 outline-none transition"
+                required
               />
 
               <textarea
@@ -205,15 +209,43 @@ export default function Contactos() {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 className="md:col-span-2 p-3 rounded-lg border border-gray-200 focus:border-red-500 focus:ring-2 focus:ring-red-100 outline-none transition resize-none"
+                required
               />
+              <div className="md:col-span-2">
+                <div className="flex items-start gap-3 text-sm text-gray-600">
+                  <input
+                    type="checkbox"
+                    required
+                    checked={acceptedPrivacy}
+                    onChange={(e) => setAcceptedPrivacy(e.target.checked)}
+                    className="mt-1 accent-red-600 w-4 h-4 cursor-pointer"
+                  />
+
+                  <span>
+                    Li e aceito a{" "}
+                    <a
+                      href="/politica-de-privacidade"
+                      className="text-red-600 hover:text-red-700 underline"
+                    >
+                      Política de Privacidade
+                    </a>
+                  </span>
+                </div>
+
+                <p className="mt-2 text-xs text-gray-500 leading-relaxed">
+                  Os seus dados serão utilizados exclusivamente para responder
+                  ao seu pedido de contacto, não sendo partilhados com
+                  terceiros.
+                </p>
+              </div>
 
               <button
                 type="submit"
-                disabled={loading}
-                className={`md:col-span-2 py-3 rounded-lg font-medium transition-all duration-200 shadow-md ${
-                  loading
-                    ? "bg-red-400 cursor-not-allowed"
-                    : "bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white"
+                disabled={loading || !acceptedPrivacy}
+                className={`md:col-span-2 py-3 rounded-lg font-medium transition-all duration-200 shadow-md text-white ${
+                  loading || !acceptedPrivacy
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-red-600 hover:bg-red-700 active:scale-[0.98]"
                 }`}
               >
                 {loading ? "A enviar..." : "Enviar Mensagem"}

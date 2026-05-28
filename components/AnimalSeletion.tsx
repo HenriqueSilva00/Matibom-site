@@ -159,7 +159,7 @@ export default function AnimalSeletion() {
 
           {/* SVG OVERLAY */}
           {selectedAnimal && (
-            <div className="absolute w-[950px] max-w-[90vw] mt-15 md:mt-40 lg:mt-60">
+            <div className="absolute w-[950px] max-w-[90vw] mt-20 md:mt-60">
               {selectedAnimal === "bovino" && (
                 <BovinoMap onSelectPart={setSelectedPart} />
               )}

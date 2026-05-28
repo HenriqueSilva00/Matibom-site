@@ -21,8 +21,9 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           {/* TEXTO */}
           <div className="text-center w-full lg:w-[100%] mx-auto">
-            <h2 className="text-4xl md:text-6xl font-semibold text-gray-900 mb-8">
-              O que é a <span className="text-red-600">Matibom</span>?
+            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-8 tracking-tight antialiased">
+              O que é a{" "}
+              <span className="text-red-600 font-semibold">Matibom</span>?
             </h2>
 
             <p className="text-gray-600 text-lg leading-relaxed mb-6">
@@ -50,17 +51,17 @@ export default function Home() {
             <a
               href="/sobre"
               className="
-          inline-block
-          bg-red-600
-          hover:bg-red-700
-          text-white
-          font-medium
-          py-3
-          px-8
-          rounded-xl
-          transition
-          duration-300
-        "
+                inline-block
+                bg-red-600
+                hover:bg-red-700
+                text-white
+                font-medium
+                py-3
+                px-8
+                rounded-xl
+                transition
+                duration-300
+              "
             >
               Saiba mais sobre nós
             </a>

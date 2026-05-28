@@ -2,6 +2,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
+import CookiesData from "@/components/CookiesData";
 
 export default function RootLayout({ children }: any) {
   return (
@@ -15,6 +16,8 @@ export default function RootLayout({ children }: any) {
 
         {/* BOTÃO GLOBAL */}
         <ScrollToTopButton />
+
+        <CookiesData />
       </body>
     </html>
   );

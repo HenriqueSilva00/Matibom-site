@@ -33,7 +33,7 @@ export default function ScrollToTopButton() {
             ease: "easeOut",
           }}
           className="
-            fixed bottom-6 right-6 z-50
+            fixed bottom-20 right-6 z-50
             w-12 h-12
             bg-red-600 hover:bg-red-700
             text-white

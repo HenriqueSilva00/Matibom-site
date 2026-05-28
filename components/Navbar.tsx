@@ -104,7 +104,7 @@ export default function Navbar() {
       } ${
         isHome && atTop && !mobileOpen
           ? "bg-transparent md:bg-transparent"
-          : "bg-white shadow-md border-b border-gray-200"
+          : "bg-white shadow-md "
       }`}
     >
       <div className="max-w-7xl mx-auto px-0 py-4 md:py-2 flex justify-between items-center">
@@ -325,7 +325,7 @@ export default function Navbar() {
                     href="/empresa/certificacoes"
                     onClick={closeMobileMenu}
                   >
-                    - Certificações
+                    Certificações
                   </Link>
 
                   <Link
@@ -333,7 +333,7 @@ export default function Navbar() {
                     href="/empresa/instalacoes"
                     onClick={closeMobileMenu}
                   >
-                    - Instalações
+                    Instalações
                   </Link>
 
                   <Link
@@ -341,7 +341,7 @@ export default function Navbar() {
                     href="/empresa/parceiros"
                     onClick={closeMobileMenu}
                   >
-                    - Clientes & Parceiros
+                    Clientes & Parceiros
                   </Link>
 
                   <Link
@@ -349,7 +349,7 @@ export default function Navbar() {
                     href="/empresa/logistica"
                     onClick={closeMobileMenu}
                   >
-                    - Distribuição & Logística
+                    Distribuição & Logística
                   </Link>
                 </div>
               </div>
