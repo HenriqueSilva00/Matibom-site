@@ -10,28 +10,6 @@ export default function AnimalSeletion() {
   const [mode, setMode] = useState<"preview" | "interactive">("preview");
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   type AnimalType = "bovino" | "suino" | "caprino";
-  const animals = {
-    bovino: "/assets/vaca/vaca.png",
-    suino: "/assets/porco/porco.png",
-    caprino: "/assets/cabra/cabra.png",
-  };
-
-  const partInfo: Record<
-    string,
-    { title: string; img: string; description: string }
-  > = {
-    cabeca: {
-      title: "Cabeça",
-      img: "/assets/vaca/parts/cabecaVaca.jpeg",
-      description:
-        "Este corte é amplamente utilizado na indústria alimentar devido à sua textura, rendimento e versatilidade em diferentes métodos de confeção. No contexto da MATIBOM, representa uma das secções mais valorizadas no processamento de carne",
-    },
-    rabo: {
-      title: "Rabo",
-      img: "/assets/vaca/parts/raboVaca.jpeg",
-      description: "Utilizado em pratos tradicionais com longa cozedura.",
-    },
-  };
 
   return (
     <section
@@ -179,17 +157,9 @@ export default function AnimalSeletion() {
             />
           )}
 
-          {/* IMAGEM BASE */}
-          {selectedAnimal && (
-            <img
-              src={animals[selectedAnimal]}
-              className="w-[900px] max-w-[90vw] mt-20 select-none"
-            />
-          )}
-
           {/* SVG OVERLAY */}
           {selectedAnimal && (
-            <div className="absolute w-[950px] max-w-[90vw]">
+            <div className="absolute w-[950px] max-w-[90vw] mt-15 md:mt-40 lg:mt-60">
               {selectedAnimal === "bovino" && (
                 <BovinoMap onSelectPart={setSelectedPart} />
               )}
@@ -204,41 +174,6 @@ export default function AnimalSeletion() {
             </div>
           )}
         </div>
-        {selectedPart && (
-          <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50"
-            onClick={() => setSelectedPart(null)}
-          >
-            <div
-              className="bg-[#1f1f1f] border border-red-600/30 rounded-2xl p-8 w-[92%] max-w-2xl shadow-2xl relative text-white"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* close */}
-              <button
-                className="absolute top-4 right-4 text-white/70 hover:text-red-500 text-2xl transition"
-                onClick={() => setSelectedPart(null)}
-              >
-                ✕
-              </button>
-
-              {/* title */}
-              <h2 className="text-3xl font-bold mb-5 text-red-500 tracking-wide">
-                {partInfo[selectedPart]?.title}
-              </h2>
-
-              {/* image */}
-              <img
-                src={partInfo[selectedPart]?.img}
-                className="w-full h-[260px] object-cover rounded-xl mb-6 border border-red-500/20"
-              />
-
-              {/* description */}
-              <p className="text-gray-300 leading-relaxed text-base">
-                {partInfo[selectedPart]?.description}
-              </p>
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );

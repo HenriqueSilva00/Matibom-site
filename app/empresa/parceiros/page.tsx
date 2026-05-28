@@ -32,8 +32,11 @@ export default function ClientesParceiros() {
   };
 
   const [itemsPerView, setItemsPerView] = useState(4);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
+
     const update = () => {
       setItemsPerView(window.innerWidth < 768 ? 1 : 4);
     };

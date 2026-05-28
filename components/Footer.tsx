@@ -6,6 +6,7 @@ import {
   FaEnvelope,
   FaMapMarkerAlt,
 } from "react-icons/fa";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -46,17 +47,37 @@ export default function Footer() {
             </h3>
 
             <ul className="space-y-3">
-              <li className="hover:text-red-600 transition cursor-pointer">
-                Sobre
+              <li>
+                <Link href="/sobre" className="hover:text-red-600 transition">
+                  Sobre
+                </Link>
               </li>
-              <li className="hover:text-red-600 transition cursor-pointer">
-                Serviços
+
+              <li>
+                <Link
+                  href="/servicos"
+                  className="hover:text-red-600 transition"
+                >
+                  Serviços
+                </Link>
               </li>
-              <li className="hover:text-red-600 transition cursor-pointer">
-                Certificações
+
+              <li>
+                <Link
+                  href="/empresa/certificacoes"
+                  className="hover:text-red-600 transition"
+                >
+                  Certificações
+                </Link>
               </li>
-              <li className="hover:text-red-600 transition cursor-pointer">
-                Contactos
+
+              <li>
+                <Link
+                  href="/contactos"
+                  className="hover:text-red-600 transition"
+                >
+                  Contactos
+                </Link>
               </li>
             </ul>
           </div>

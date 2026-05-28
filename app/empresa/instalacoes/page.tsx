@@ -79,6 +79,7 @@ export default function InstalacoesPage() {
                 src={images[index]}
                 alt={`Instalações MATIBOM ${index + 1}`}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 priority
                 className="object-cover"
               />

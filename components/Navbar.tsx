@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import NavLink from "./Navlink";
 import { AnimatePresence, motion } from "framer-motion";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -23,6 +23,7 @@ export default function Navbar() {
   const [showNavbar, setShowNavbar] = useState(true);
   const [atTop, setAtTop] = useState(true);
   const textColor = isHome && atTop ? "text-white" : "text-black";
+  const router = useRouter();
 
   const logoSrc =
     isHome && atTop && !mobileOpen
@@ -36,6 +37,19 @@ export default function Navbar() {
 
   const navIsTransparent = isHome && atTop && !mobileOpen;
   const [menuMounted, setMenuMounted] = useState(false);
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    if (pathname === "/") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    } else {
+      router.push("/");
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -99,6 +113,7 @@ export default function Navbar() {
     ========================= */}
         <Link
           href="/"
+          onClick={handleLogoClick}
           className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 flex items-center leading-none"
         >
           <Image
@@ -108,15 +123,15 @@ export default function Navbar() {
             height={140}
             priority
             className="
-              h-14
-              md:h-[95px]
-              lg:h-[100px]
-              w-auto
-              object-contain
-              transition-all
-              duration-500
-              select-none
-            "
+      h-14
+      md:h-[95px]
+      lg:h-[100px]
+      w-auto
+      object-contain
+      transition-all
+      duration-500
+      select-none
+    "
           />
         </Link>
 
