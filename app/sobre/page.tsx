@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight, ShieldCheck, Factory, Award, Users } from "lucide-react"; // Opcional: ícones para ajudar na leitura
 
 const images = ["/assets/instalacoes1.jpg", "/assets/instalacoes2.jpg"];
 
@@ -76,88 +77,179 @@ export default function Sobre() {
         <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-white/20" />
       </section>
 
-      <section className="w-full py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <section className="w-full py-24 bg-gray-50/30">
+        {/* 1. CONTAINER TOPO (80% Width, 50/50) */}
+        <div className="w-[80%] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
           {/* ESQUERDA - SLIDESHOW */}
-          <div className="relative w-full aspect-[5/4] md:aspect-[4/3] rounded-[28px] overflow-hidden shadow-2xl border border-gray-100">
+          <div className="relative w-full aspect-[4/3] rounded-[32px] overflow-hidden shadow-2xl">
             <AnimatePresence mode="wait">
               <motion.img
                 key={images[index]}
                 src={images[index]}
-                alt="MATIBOM"
+                alt="MATIBOM Instalações"
                 className="absolute inset-0 w-full h-full object-cover"
-                initial={{
-                  opacity: 0,
-                  scale: 1.15,
-                  x: 40,
-                  filter: "blur(10px)",
-                }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  x: 0,
-                  filter: "blur(0px)",
-                }}
-                exit={{
-                  opacity: 0,
-                  scale: 0.95,
-                  x: -40,
-                  filter: "blur(8px)",
-                }}
-                transition={{
-                  duration: 1.4,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 1.2 }}
               />
             </AnimatePresence>
-
-            {/* overlay cinematográfico */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+            <div className="absolute bottom-8 left-8 text-white">
+              <p className="text-sm uppercase tracking-widest opacity-80">
+                Unidade Industrial
+              </p>
+              <h3 className="text-xl font-light">
+                Tecnologia de Ponta em Valbom
+              </h3>
+            </div>
           </div>
 
-          {/* DIREITA - TEXTO */}
-          <div className="relative">
-            {/* moldura externa decorativa */}
-            <div className="absolute -inset-3 border-2 border-[#8B1E1E]/20 rounded-[32px] rotate-1" />
-            <div className="absolute -inset-6 border border-[#8B1E1E]/10 rounded-[32px] -rotate-2" />
+          {/* DIREITA - DESCRIÇÃO CURTA */}
+          <div className="flex flex-col justify-center">
+            <span className="text-[#8B1E1E] uppercase tracking-[0.4em] text-xs font-bold mb-4">
+              Desde 1997
+            </span>
+            <h2 className="text-5xl font-extrabold text-gray-900 mb-6 leading-[1.1]">
+              Referência Nacional e{" "}
+              <span className="text-[#8B1E1E]">Internacional</span>
+            </h2>
+            <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
+              <p className="font-medium text-gray-800">
+                A MATIBOM nasceu com a missão de oferecer produtos de excelência
+                alimentar, aliando a tradição do setor à máxima inovação
+                industrial.
+              </p>
+              <p>
+                Iniciámos o nosso percurso em Pinhel e, hoje, somos uma empresa
+                de referência pelo rigoroso controle de qualidade e pela
+                capacidade de resposta às necessidades técnicas dos nossos
+                clientes mais exigentes.
+              </p>
+            </div>
+          </div>
+        </div>
 
-            {/* conteúdo principal */}
-            <div className="relative bg-white rounded-[28px] p-12 shadow-xl">
-              {/* título estilizado */}
-              <div className="mb-6">
-                <span className="text-[#8B1E1E] uppercase tracking-[0.35em] text-sm font-semibold">
-                  A nossa essência
-                </span>
+        {/* 2. CONTAINER DE INFORMAÇÃO DETALHADA (80% Width) */}
+        <div className="w-[80%] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* BLOCO A: EVOLUÇÃO E TECNOLOGIA */}
+            <div className="space-y-8">
+              <div className="bg-white p-10 rounded-[32px] shadow-sm border border-gray-100 h-full">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 bg-red-50 rounded-2xl text-[#8B1E1E]">
+                    <Factory size={28} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900">
+                    Evolução & Infraestrutura
+                  </h3>
+                </div>
 
-                <h2 className="text-4xl font-bold text-gray-900 mt-3 leading-tight">
-                  Carne com origem, rigor e identidade
-                </h2>
+                <div className="space-y-6 text-gray-700">
+                  <div className="border-l-2 border-red-100 pl-6 relative">
+                    <span className="absolute -left-[5px] top-0 w-2 h-2 bg-[#8B1E1E] rounded-full" />
+                    <p className="text-sm font-bold text-[#8B1E1E] uppercase">
+                      1997
+                    </p>
+                    <p>
+                      Início com Matadouro de Suínos, desmancha e transformação
+                      em Valbom.
+                    </p>
+                  </div>
+
+                  <div className="border-l-2 border-red-100 pl-6 relative">
+                    <span className="absolute -left-[5px] top-0 w-2 h-2 bg-[#8B1E1E] rounded-full" />
+                    <p className="text-sm font-bold text-[#8B1E1E] uppercase">
+                      2015
+                    </p>
+                    <p>
+                      Nova unidade vocacionada para fatiar e preservar produtos,
+                      implementando a mais alta tecnologia de manuseamento.
+                    </p>
+                  </div>
+
+                  <p className="pt-4 italic">
+                    "O nosso moderno matadouro permite processar anualmente uma
+                    grande quantidade de carne, garantindo o melhor preço com
+                    alta qualidade."
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* BLOCO B: ATIVIDADE E CONTROLO */}
+            <div className="space-y-8">
+              <div className="bg-[#8B1E1E] p-10 rounded-[32px] shadow-xl text-white h-full">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 bg-white/10 rounded-2xl text-white">
+                    <ShieldCheck size={28} />
+                  </div>
+                  <h3 className="text-2xl font-bold">Rigor & Segurança</h3>
+                </div>
+
+                <ul className="space-y-4">
+                  <li className="flex gap-3">
+                    <ChevronRight className="text-red-300 shrink-0" />
+                    <span>
+                      <strong>Local 100% Controlado:</strong> Processos que
+                      cumprem todas as normas de higiene e segurança.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <ChevronRight className="text-red-300 shrink-0" />
+                    <span>
+                      <strong>Variedade de Espécies:</strong> Carnes Suínas,
+                      Bovinas, Ovinas, Caprinas e Fumeiro Tradicional.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <ChevronRight className="text-red-300 shrink-0" />
+                    <span>
+                      <strong>Formatos:</strong> Carne fresca, congelados,
+                      fatiados e transformados em diversos estilos de embalagem.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <ChevronRight className="text-red-300 shrink-0" />
+                    <span>
+                      <strong>Apresentação:</strong> Embalamento focado na
+                      estética atrativa e na vida útil duradoura do produto.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* BLOCO C: EQUIPA E MISSÃO (Ocupa 2 colunas em telas grandes) */}
+            <div className="md:col-span-2 grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
+              <div className="lg:col-span-1 bg-white p-8 rounded-[28px] border border-gray-100 flex items-start gap-5">
+                <Users className="text-[#8B1E1E] shrink-0" size={32} />
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-1">
+                    Equipa Qualificada
+                  </h4>
+                  <p className="text-sm text-gray-600">
+                    Profissionais versáteis com vasta experiência e conhecimento
+                    técnico na indústria.
+                  </p>
+                </div>
               </div>
 
-              {/* texto mais leve, editorial */}
-              <div className="space-y-5 text-gray-700 leading-relaxed text-lg">
-                <p>
-                  A MATIBOM nasce de uma tradição profundamente enraizada na
-                  região da Guarda, onde a qualidade não é um objetivo — é um
-                  padrão obrigatório.
+              <div className="lg:col-span-2 bg-white p-8 rounded-[28px] border border-gray-100 flex flex-col justify-center">
+                <div className="flex items-center gap-3 mb-2 text-[#8B1E1E]">
+                  <Award size={20} />
+                  <span className="font-bold uppercase text-xs tracking-tighter">
+                    Missão Constante
+                  </span>
+                </div>
+                <p className="text-xl text-gray-800 leading-relaxed">
+                  "Obter a melhor{" "}
+                  <span className="text-[#8B1E1E] font-bold">
+                    Qualidade, Frescura e Higiene
+                  </span>{" "}
+                  em todos os produtos, até que estes cheguem ao consumidor
+                  final para integrar as mais originais receitas."
                 </p>
-
-                <p>
-                  Ao longo dos anos, evoluímos processos, tecnologia e rigor
-                  técnico, sem nunca perder a ligação à autenticidade da
-                  produção.
-                </p>
-
-                <p>
-                  Cada etapa é controlada com precisão para garantir
-                  consistência, segurança e excelência no produto final.
-                </p>
-              </div>
-
-              {/* detalhe visual pequeno */}
-              <div className="mt-10 flex items-center gap-3 text-[#8B1E1E] font-medium">
-                <span className="w-2.5 h-2.5 bg-[#8B1E1E] rounded-full animate-pulse"></span>
-                Produção certificada e controlada diariamente
               </div>
             </div>
           </div>
