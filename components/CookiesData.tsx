@@ -6,7 +6,6 @@ import { ChevronDown, Cookie } from "lucide-react";
 
 export default function CookiesData() {
   const [show, setShow] = useState(false);
-
   const [analytics, setAnalytics] = useState(false);
   const [functional, setFunctional] = useState(false);
   const [ads, setAds] = useState(false);
@@ -18,15 +17,73 @@ export default function CookiesData() {
   });
 
   useEffect(() => {
-    const accepted = localStorage.getItem("cookies_accepted");
-    if (!accepted) setShow(true);
+    const saved = localStorage.getItem("cookies_accepted");
+
+    if (!saved) {
+      setShow(true);
+      return;
+    }
+
+    if (saved) {
+      setShow(false);
+    }
+
+    try {
+      const parsed = JSON.parse(saved);
+
+      setAnalytics(!!parsed.analytics);
+      setFunctional(!!parsed.functional);
+      setAds(!!parsed.ads);
+      console.log(localStorage);
+    } catch {
+      setShow(true);
+    }
   }, []);
 
-  const save = (value: string) => {
-    localStorage.setItem("cookies_accepted", value);
+  const save = (p0: {
+    analytics: boolean;
+    functional: boolean;
+    ads: boolean;
+  }) => {
+    const previous = JSON.parse(
+      localStorage.getItem("cookies_accepted") || "{}"
+    );
+
+    const newPreferences = {
+      analytics,
+      functional,
+      ads,
+    };
+
+    localStorage.setItem("cookies_accepted", JSON.stringify(newPreferences));
+
+    window.dispatchEvent(new Event("cookies_updated"));
+
     setShow(false);
+
+    // se analytics estava ativo e foi removido
+    if (previous.analytics && !analytics) {
+      window.location.reload();
+    }
   };
 
+  const acceptAll = () => {
+    const newPrefs = {
+      analytics: true,
+      functional: true,
+      ads: true,
+    };
+
+    setAnalytics(true);
+    setFunctional(true);
+    setAds(true);
+
+    localStorage.setItem("cookies_accepted", JSON.stringify(newPrefs));
+
+    window.dispatchEvent(new Event("cookies_updated"));
+
+    setShow(false);
+  };
   return (
     <>
       {/* BOTÃO FLUTUANTE */}
@@ -69,14 +126,16 @@ export default function CookiesData() {
               exit={{ y: 20, opacity: 0 }}
               transition={{ duration: 0.25 }}
               className="
-          bg-white
-          w-full
-          max-w-3xl
-          rounded-3xl
-          shadow-[0_20px_80px_rgba(0,0,0,0.25)]
-          overflow-hidden
-          border border-gray-200
-        "
+              bg-white
+              w-full
+              max-w-3xl
+              max-h-[90vh]
+              flex flex-col
+              rounded-3xl
+              shadow-[0_20px_80px_rgba(0,0,0,0.25)]
+              overflow-hidden
+              border border-gray-200
+            "
               onClick={(e) => e.stopPropagation()}
             >
               {/* HEADER */}
@@ -294,7 +353,13 @@ export default function CookiesData() {
               {/* FOOTER */}
               <div className="px-8 py-6 border-t border-gray-100 bg-gray-50 flex flex-col md:flex-row gap-3 justify-end">
                 <button
-                  onClick={() => save("rejected")}
+                  onClick={() =>
+                    save({
+                      analytics: false,
+                      functional: false,
+                      ads: false,
+                    })
+                  }
                   className="
               px-5 py-3
               rounded-xl
@@ -311,7 +376,11 @@ export default function CookiesData() {
 
                 <button
                   onClick={() =>
-                    save(JSON.stringify({ analytics, functional, ads }))
+                    save({
+                      analytics,
+                      functional,
+                      ads,
+                    })
                   }
                   className="
               px-5 py-3
@@ -328,21 +397,16 @@ export default function CookiesData() {
                 </button>
 
                 <button
-                  onClick={() => {
-                    setAnalytics(true);
-                    setFunctional(true);
-                    setAds(true);
-                    save("accepted_all");
-                  }}
+                  onClick={acceptAll}
                   className="
-              px-5 py-3
-              rounded-xl
-              bg-black
-              hover:bg-red-600
-              text-white
-              transition
-              font-medium
-            "
+                    px-5 py-3
+                    rounded-xl
+                    bg-black
+                    hover:bg-red-600
+                    text-white
+                    transition
+                    font-medium
+                  "
                 >
                   Aceitar tudo
                 </button>
