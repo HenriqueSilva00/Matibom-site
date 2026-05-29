@@ -7,14 +7,14 @@ import { motion } from "framer-motion";
 
 export default function ClientesParceiros() {
   const logos = [
-    "/assets/Clientes/almeidaLOGO.jpeg",
-    "/assets/Clientes/criartecoaLOGO.jpeg",
-    "/assets/Clientes/guardaLOGO.jpeg",
-    "/assets/Clientes/pinhelLOGO.png",
-    "/assets/Clientes/sabugalLOGO.png",
-    "/assets/Clientes/talhoCaldasRainhaLOGO.png",
-    "/assets/Clientes/talhoCastroLOGO.png",
-    "/assets/Clientes/TalhoNacionalLOGO.jpeg",
+    "/assets/clientes/almeidaLOGO.jpeg",
+    "/assets/clientes/criartecoaLOGO.jpeg",
+    "/assets/clientes/guardaLOGO.jpeg",
+    "/assets/clientes/pinhelLOGO.png",
+    "/assets/clientes/sabugalLOGO.png",
+    "/assets/clientes/talhoCaldasRainhaLOGO.png",
+    "/assets/clientes/talhoCastroLOGO.png",
+    "/assets/clientes/TalhoNacionalLOGO.jpeg",
   ];
 
   const duplicatedLogos = [...logos, ...logos];
