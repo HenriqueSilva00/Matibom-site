@@ -1,11 +1,4 @@
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaPhone,
-  FaEnvelope,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
+import { FaFacebookF, FaEnvelope, FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
 
 export default function Footer() {
@@ -33,9 +26,19 @@ export default function Footer() {
                 href="https://www.facebook.com/matibompt"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-gray-800 rounded hover:bg-red-600 transition cursor-pointer inline-flex items-center justify-center"
+                className="p-2 bg-gray-800 rounded hover:bg-blue-600 transition inline-flex items-center justify-center"
               >
                 <FaFacebookF />
+              </a>
+
+              {/* WhatsApp */}
+              <a
+                href="https://wa.me/351912345678?text=Olá%20gostava%20de%20mais%20informações"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 bg-gray-800 rounded hover:bg-green-500 transition inline-flex items-center justify-center"
+              >
+                <FaWhatsapp className="text-white" />
               </a>
             </div>
           </div>

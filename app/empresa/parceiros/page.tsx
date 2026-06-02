@@ -66,40 +66,49 @@ export default function ClientesParceiros() {
     startAutoPlay();
   };
   return (
-    <section className="w-full pt-32 md:pt-40 pb-24 px-6 bg-white relative overflow-hidden">
+    <section className="w-full pt-28 md:pt-36 pb-24 px-6 bg-white relative overflow-hidden">
       {/* subtle red glow background */}
       <div className="absolute top-[-120px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-red-100 blur-[120px] opacity-40" />
 
       {/* HEADER */}
-      <div className="max-w-6xl mx-auto text-center mb-16 relative z-10">
+      <div className="max-w-6xl mx-auto text-center relative z-10">
+        {/* badge */}
         <span className="inline-flex items-center px-4 py-2 rounded-full bg-red-50 text-red-600 text-sm font-medium border border-red-100 mb-8">
           Parcerias • Confiança • Crescimento
         </span>
+
+        {/* title */}
         <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
           Clientes & <span className="text-red-600">Parceiros</span>
         </h2>
 
-        <p className="mt-4 text-gray-600 text-lg leading-relaxed max-w-4xl mx-auto">
+        {/* divider (igual Instalações) */}
+        <div className="flex items-center justify-center mt-5 md:mt-6">
+          <div className="h-[2px] w-12 bg-gray-300 rounded-full" />
+          <div className="mx-3 w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+          <div className="h-[2px] w-12 bg-gray-300 rounded-full" />
+        </div>
+
+        {/* text */}
+        <p className="mt-6 text-[16px] text-gray-600 leading-relaxed max-w-4xl mx-auto">
           Trabalhamos com parceiros de confiança que partilham os mesmos valores
           de qualidade, segurança e excelência. A nossa rede de clientes é
           fundamental para o crescimento e consolidação da MATIBOM no mercado.
         </p>
-
-        <div className="w-24 h-[3px] bg-gradient-to-r from-red-600 to-red-300 mx-auto mt-6 rounded-full" />
       </div>
 
       {/* CAROUSEL FULL WIDTH */}
-      <div className="relative w-full max-w-none flex items-center justify-center">
+      <div className="relative w-full max-w-none flex items-center justify-center mt-16 md:mt-24">
         {/* LEFT */}
         <button
           onClick={prev}
-          className="absolute left-2 md:left-6 z-10 w-14 h-14 rounded-full bg-white border border-red-100 shadow flex items-center justify-center hover:bg-red-50 hover:scale-105 transition"
+          className="absolute left-2 md:left-10 z-10 w-14 h-14 rounded-full bg-white border border-red-100 shadow flex items-center justify-center hover:bg-red-50 hover:scale-105 transition"
         >
           <ChevronLeft size={28} className="text-red-600" />
         </button>
 
         {/* LOGOS */}
-        <div className="overflow-hidden w-full px-16 md:px-10">
+        <div className="overflow-hidden w-full px-6 md:px-0">
           <motion.div
             animate={{
               x: `-${index * (100 / itemsPerView)}%`,
@@ -114,31 +123,27 @@ export default function ClientesParceiros() {
             {duplicatedLogos.map((logo, i) => (
               <motion.div
                 key={i}
-                whileHover={{ scale: 1.04 }}
-                className="
-          w-full md:w-1/4
-          flex-shrink-0
-          px-4
-        "
+                whileHover={{ scale: 1.06 }}
+                className="w-full md:w-1/3 lg:w-1/4 flex-shrink-0 px-6"
               >
                 <div
                   className="
-            flex items-center justify-center
-            bg-white rounded-2xl border border-gray-100
-            shadow-sm hover:shadow-md transition
-            relative overflow-hidden
-            h-[200px] md:h-[180px]
-          "
+              flex items-center justify-center
+              bg-white rounded-2xl border border-gray-100
+              shadow-sm hover:shadow-md transition
+              relative overflow-hidden
+              h-[240px] md:h-[260px]
+            "
                 >
                   {/* red accent line */}
-                  <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-red-600 to-transparent opacity-60" />
+                  <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-red-600 to-transparent opacity-70" />
 
                   <Image
                     src={logo}
                     alt={`Cliente ${i}`}
-                    width={260}
-                    height={180}
-                    className="object-contain h-32 md:h-28 w-auto"
+                    width={320}
+                    height={220}
+                    className="object-contain h-40 md:h-44 w-auto"
                   />
                 </div>
               </motion.div>
@@ -149,7 +154,7 @@ export default function ClientesParceiros() {
         {/* RIGHT */}
         <button
           onClick={next}
-          className="absolute right-2 md:right-6 z-10 w-14 h-14 rounded-full bg-white border border-red-100 shadow flex items-center justify-center hover:bg-red-50 hover:scale-105 transition"
+          className="absolute right-2 md:right-10 z-10 w-14 h-14 rounded-full bg-white border border-red-100 shadow flex items-center justify-center hover:bg-red-50 hover:scale-105 transition"
         >
           <ChevronRight size={28} className="text-red-600" />
         </button>

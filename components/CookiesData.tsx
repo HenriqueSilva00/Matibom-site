@@ -9,6 +9,7 @@ export default function CookiesData() {
   const [analytics, setAnalytics] = useState(false);
   const [functional, setFunctional] = useState(false);
   const [ads, setAds] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const [sections, setSections] = useState({
     analytics: false,
@@ -139,38 +140,50 @@ export default function CookiesData() {
               onClick={(e) => e.stopPropagation()}
             >
               {/* HEADER */}
-              <div className="px-8 py-7 border-b border-gray-100">
+              <div className="px-6 md:px-8 py-6 md:py-7 border-b border-gray-100">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-11 h-11 rounded-2xl bg-red-50 flex items-center justify-center">
-                    <Cookie className="text-red-600" size={22} />
+                  <div className="w-10 md:w-11 h-10 md:h-11 rounded-2xl bg-red-50 flex items-center justify-center">
+                    <Cookie className="text-red-600" size={20} />
                   </div>
 
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900 tracking-tight">
+                    <h2 className="text-xl md:text-2xl font-semibold text-gray-900 tracking-tight">
                       Preferências de Cookies
                     </h2>
 
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-xs md:text-sm text-gray-500 mt-1">
                       Controle a forma como os seus dados são utilizados.
                     </p>
                   </div>
                 </div>
 
-                <p className="text-[15px] leading-relaxed text-gray-600">
+                <p
+                  className={`
+      text-sm md:text-[15px] leading-relaxed text-gray-600 transition-all
+      ${expanded ? "" : "line-clamp-2"}
+    `}
+                >
                   Utilizamos cookies para melhorar a experiência de navegação,
                   analisar estatísticas de utilização e otimizar o desempenho do
                   website. Pode aceitar todos os cookies ou personalizar as suas
                   preferências.
                 </p>
+
+                <button
+                  onClick={() => setExpanded(!expanded)}
+                  className="mt-2 text-xs md:text-sm text-red-600 font-medium hover:underline"
+                >
+                  {expanded ? "Ver menos" : "Ver mais"}
+                </button>
               </div>
 
               {/* CONTENT */}
               <div className="p-8 space-y-5 max-h-[60vh] overflow-y-auto">
                 {/* NECESSÁRIOS */}
                 <div className="border border-gray-200 rounded-2xl p-5 bg-gray-50">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <h3 className="text-[17px] font-semibold text-gray-900">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-[16px] md:text-[17px] font-semibold text-gray-900">
                         Cookies Necessários
                       </h3>
 
@@ -182,7 +195,7 @@ export default function CookiesData() {
                       </p>
                     </div>
 
-                    <span className="text-xs bg-red-100 text-red-600 px-3 py-1 rounded-full font-medium whitespace-nowrap">
+                    <span className="text-xs bg-red-100 text-red-600 px-3 py-1 rounded-full font-medium whitespace-nowrap self-start sm:self-auto">
                       Sempre ativo
                     </span>
                   </div>
@@ -351,7 +364,7 @@ export default function CookiesData() {
               </div>
 
               {/* FOOTER */}
-              <div className="px-8 py-6 border-t border-gray-100 bg-gray-50 flex flex-col md:flex-row gap-3 justify-end">
+              <div className="px-8 py-6 border-t border-gray-100 bg-gray-50 flex flex-col md:flex-row gap-2 md:gap-3 justify-end">
                 <button
                   onClick={() =>
                     save({
@@ -361,15 +374,17 @@ export default function CookiesData() {
                     })
                   }
                   className="
-              px-5 py-3
-              rounded-xl
-              bg-white
-              border border-gray-300
-              text-gray-700
-              hover:bg-gray-100
-              transition
-              font-medium
-            "
+      px-4 md:px-5
+      py-2.5 md:py-3
+      text-sm md:text-base
+      rounded-xl
+      bg-white
+      border border-gray-300
+      text-gray-700
+      hover:bg-gray-100
+      transition
+      font-medium
+    "
                 >
                   Rejeitar
                 </button>
@@ -383,15 +398,17 @@ export default function CookiesData() {
                     })
                   }
                   className="
-              px-5 py-3
-              rounded-xl
-              bg-red-600
-              hover:bg-red-500
-              text-white
-              transition
-              font-medium
-              shadow-lg shadow-red-600/20
-            "
+      px-4 md:px-5
+      py-2.5 md:py-3
+      text-sm md:text-base
+      rounded-xl
+      bg-red-600
+      hover:bg-red-500
+      text-white
+      transition
+      font-medium
+      shadow-lg shadow-red-600/20
+    "
                 >
                   Guardar preferências
                 </button>
@@ -399,14 +416,16 @@ export default function CookiesData() {
                 <button
                   onClick={acceptAll}
                   className="
-                    px-5 py-3
-                    rounded-xl
-                    bg-black
-                    hover:bg-red-600
-                    text-white
-                    transition
-                    font-medium
-                  "
+      px-4 md:px-5
+      py-2.5 md:py-3
+      text-sm md:text-base
+      rounded-xl
+      bg-black
+      hover:bg-red-600
+      text-white
+      transition
+      font-medium
+    "
                 >
                   Aceitar tudo
                 </button>

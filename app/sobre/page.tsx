@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ShieldCheck, Factory, Award, Users } from "lucide-react"; // Opcional: ícones para ajudar na leitura
 
-const images = ["/assets/instalacoes1.jpg", "/assets/instalacoes2.jpg"];
+const images = [
+  "/assets/instalacoes1.jpg",
+  "/assets/instalacoes2.jpg",
+  "/assets/instalacoes3.jpg",
+];
 
 export default function Sobre() {
   const [index, setIndex] = useState(0);
@@ -69,40 +73,83 @@ export default function Sobre() {
           alt="Banner Sobre MATIBOM"
           className="absolute inset-0 w-full h-full object-cover"
         />
-
-        {/* OVERLAY SUAVE */}
-        <div className="absolute inset-0 bg-[#8B1E1E]/25 backdrop-brightness-90" />
-
-        {/* DEGRADÊ */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-white/20" />
       </section>
 
       <section className="w-full py-24 bg-gray-50/30">
         {/* 1. CONTAINER TOPO (80% Width, 50/50) */}
         <div className="w-[80%] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
           {/* ESQUERDA - SLIDESHOW */}
-          <div className="relative w-full aspect-[4/3] rounded-[32px] overflow-hidden shadow-2xl">
-            <AnimatePresence mode="wait">
-              <motion.img
+          <div className="relative w-full aspect-[4/3] rounded-[32px] overflow-hidden shadow-2xl group">
+            <AnimatePresence mode="popLayout">
+              <motion.div
                 key={images[index]}
-                src={images[index]}
-                alt="MATIBOM Instalações"
-                className="absolute inset-0 w-full h-full object-cover"
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 1.2 }}
-              />
+                className="absolute inset-0"
+                initial={{
+                  clipPath:
+                    index % 3 === 0
+                      ? "inset(0 0 100% 0)" // reveal de cima
+                      : index % 3 === 1
+                      ? "inset(100% 0 0 0)" // reveal de baixo
+                      : "inset(0 100% 0 0)", // reveal da direita
+                  filter: "blur(12px)",
+                }}
+                animate={{
+                  clipPath: "inset(0 0 0 0)",
+                  filter: "blur(0px)",
+                  transition: { duration: 1.1, ease: [0.65, 0, 0.35, 1] },
+                }}
+                exit={{
+                  scale: 1.15,
+                  opacity: 0,
+                  filter: "blur(8px)",
+                  transition: { duration: 0.9, ease: [0.65, 0, 0.35, 1] },
+                }}
+              >
+                {/* Ken Burns: a imagem continua a respirar enquanto está visível */}
+                <motion.img
+                  src={images[index]}
+                  alt="MATIBOM Instalações"
+                  className="absolute inset-0 w-full h-full object-cover will-change-transform"
+                  initial={{ scale: 1.2 }}
+                  animate={{
+                    scale: 1.05,
+                    transition: { duration: 6, ease: "easeOut" },
+                  }}
+                />
+
+                {/* Brilho que varre a imagem na entrada */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent"
+                  initial={{ x: "-100%" }}
+                  animate={{ x: "120%" }}
+                  transition={{ duration: 1.2, ease: "easeOut" }}
+                />
+              </motion.div>
             </AnimatePresence>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-            <div className="absolute bottom-8 left-8 text-white">
-              <p className="text-sm uppercase tracking-widest opacity-80">
-                Unidade Industrial
-              </p>
-              <h3 className="text-xl font-light">
-                Tecnologia de Ponta em Valbom
-              </h3>
-            </div>
+
+            {/* Vinheta inferior */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+
+            {/* Legenda com micro-animação a cada troca */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`caption-${index}`}
+                className="absolute bottom-8 left-8 text-white"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -10, opacity: 0 }}
+                transition={{ duration: 0.6, delay: 0.25 }}
+              ></motion.div>
+            </AnimatePresence>
+
+            {/* Barra de progresso do slide */}
+            <motion.div
+              key={`progress-${index}`}
+              className="absolute bottom-0 left-0 h-[3px] bg-white/80"
+              initial={{ width: "0%" }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 5, ease: "linear" }}
+            />
           </div>
 
           {/* DIREITA - DESCRIÇÃO CURTA */}

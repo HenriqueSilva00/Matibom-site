@@ -38,22 +38,31 @@ const steps = [
 
 export default function LogisticaDistribuicao() {
   return (
-    <section className="w-full bg-white pt-32 md:pt-40 pb-24 px-6">
+    <section className="w-full bg-white pt-28 md:pt-36 pb-24 px-6">
       {/* HEADER */}
-      <div className="max-w-5xl mx-auto text-center mb-16">
+      <div className="max-w-5xl mx-auto text-center">
+        {/* badge */}
         <span className="inline-flex items-center px-4 py-2 rounded-full bg-red-50 text-red-600 text-sm font-medium border border-red-100 mb-8">
           Cadeia de Frio • Distribuição • Eficiência
         </span>
+
+        {/* title */}
         <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
           Distribuição & <span className="text-red-600">Logística</span>
         </h2>
 
-        <p className="mt-4 text-gray-600 text-lg leading-relaxed">
+        {/* divider (igual padrão global) */}
+        <div className="flex items-center justify-center mt-5 md:mt-6">
+          <div className="h-[2px] w-12 bg-gray-300 rounded-full" />
+          <div className="mx-3 w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+          <div className="h-[2px] w-12 bg-gray-300 rounded-full" />
+        </div>
+
+        {/* text */}
+        <p className="mt-6 text-[16px] text-gray-600 leading-relaxed max-w-3xl mx-auto">
           Garantimos uma cadeia logística eficiente e controlada, assegurando
           que os nossos produtos chegam sempre com máxima frescura e qualidade.
         </p>
-
-        <div className="w-24 h-[3px] bg-gradient-to-r from-red-600 to-red-300 mx-auto mt-6 rounded-full" />
       </div>
 
       {/* DESKTOP FLOW */}

@@ -1,66 +1,329 @@
 "use client";
 
+import { useState } from "react";
+
+type Section =
+  | "chispe"
+  | "perna"
+  | "entremeada"
+  | "entrecosto"
+  | "pa"
+  | "faceira"
+  | "cachaco"
+  | "lombo";
+
 type Props = {
   onSelectPart: (part: string) => void;
 };
 
 export default function SuinoMap({ onSelectPart }: Props) {
+  const [selected, setSelected] = useState<Section | null>(null);
+
+  const partInfo: Record<
+    string,
+    { title: string; img: string; description: string }
+  > = {
+    chispe: {
+      title: "Chispe",
+      img: "/assets/porco/parts/chispe.jpg",
+      description:
+        "Extremidade das patas do suíno, muito utilizada em cozidos, feijoadas e pratos tradicionais.",
+    },
+
+    perna: {
+      title: "Perna",
+      img: "/assets/porco/parts/perna.jpg",
+      description:
+        "Corte nobre utilizado para assados, bifes e produção de presunto.",
+    },
+
+    entremeada: {
+      title: "Entremeada",
+      img: "/assets/porco/parts/entremeada.jpg",
+      description:
+        "Peça com boa proporção entre carne e gordura, ideal para grelhados e churrasco.",
+    },
+
+    entrecosto: {
+      title: "Entrecosto",
+      img: "/assets/porco/parts/entrecosto.jpg",
+      description:
+        "Costela suína muito apreciada para assar, grelhar ou cozinhar lentamente.",
+    },
+
+    pa: {
+      title: "Pá",
+      img: "/assets/porco/parts/pa.jpg",
+      description:
+        "Corte da parte dianteira do animal, adequado para assados e estufados.",
+    },
+
+    faceira: {
+      title: "Faceira",
+      img: "/assets/porco/parts/faceira.jpg",
+      description:
+        "Carne retirada da face do suíno, extremamente saborosa e rica em colagénio.",
+    },
+
+    cachaco: {
+      title: "Cachaço",
+      img: "/assets/porco/parts/cachaco.jpg",
+      description:
+        "Parte do pescoço com elevada suculência, muito usada para assar e grelhar.",
+    },
+
+    lombo: {
+      title: "Lombo",
+      img: "/assets/porco/parts/lombo.jpg",
+      description:
+        "Um dos cortes mais nobres do suíno, magro e muito versátil.",
+    },
+  };
+
+  function handleClick(e: React.MouseEvent<SVGGElement>) {
+    const target = e.currentTarget;
+    const section = target.getAttribute("data-section") as Section | null;
+
+    if (section) {
+      setSelected(section);
+    }
+  }
+
   return (
-    <svg viewBox="0 0 514 331" className="w-[900px] max-w-[90vw] h-auto">
-      {/* CABEÇA */}
-      <path
-        id="Cabeca"
-        d="M48.26,99.7s16.59-3.11,23.56,13.63c0,0,4.15,17.48-11.11,22.52,0,0,19.76,6.97,31.57,6.41.24-.01.49-.03.72-.04,11.7-.89,34.89-.81,25.78-64.44,0,0-37.26-31.04-57.11-14.15,0,0,.74,33.63-13.41,36.07Z"
-        fill="transparent"
-        stroke="red"
-        strokeWidth={2}
-        className="cursor-pointer hover:fill-red-500/30 transition-all duration-300"
-        onClick={() => onSelectPart("cabeca")}
-      />
+    <div className="w-full flex justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 595.04 362"
+        style={{ pointerEvents: "all" }}
+      >
+        <g id="Camada_1">{<image href="/assets/porco/porco.png" />}</g>
+        <g
+          id="Chispe"
+          data-section="chispe"
+          className="section cursor-pointer"
+          onClick={handleClick}
+          style={{ pointerEvents: "all" }}
+        >
+          <path
+            d="M205.74,235.77s18.3,23.49,14.38,51.4c0,0-2.89,10.21-8.51,16.51,0,0-3.4,6.3,8,2.72,0,0,5.11-.34,11.57-5.79,0,0,1.36,11.4,5.62.51,0,0,6.47-4.6,1.7-31.32,0,0-4.43-8.34,10.55-11.4l-2.55-1.87,2.55-1.36-3.4-.68,3.4-6.64h-2.04l-.51-2.72s-4.47,5.5-5.98-5.84c0,0-6.62,4.31-34.79-3.52Z"
+            fill={
+              selected === "chispe"
+                ? "rgba(220,38,38,0.6)"
+                : "rgba(220,38,38,0.3)"
+            }
+            stroke="red"
+            strokeWidth={1}
+          />
 
-      {/* FOCINHO */}
-      <path
-        id="Focinho"
-        d="M45.96,130.3c-.93-.52-7.25-4.21-7.78-11.56-.41-5.63,2.75-11.16,7.33-13.33,8.07-3.82,18.61,3.69,21.33,11.78.4,1.19,1.85,5.5-.22,9.33-3.29,6.07-13.69,7.68-20.67,3.78Z"
-        fill="transparent"
-        stroke="red"
-        strokeWidth={2}
-        className="cursor-pointer hover:fill-red-500/30 transition-all duration-300"
-        onClick={() => onSelectPart("focinho")}
-      />
+          <path
+            d="M443.96,235.17s9.45,3.32,12.34,13.7c0,0,12.26,4.6,8.51,17.87,0,0,6.92,30.13-10.07,39.66,0,0-5.76,3.23,18.41,3.4,0,0,1.87,1.02,8-8.68,0,0,2.55.91,3.4,8.71,0,0,4.09-1.05,8.34-26.41,0,0-3.74-24.85,4.77-48.26,0,0,5.45-4-7.83-15.57,0,0,.68-6.54-4.34-7.44l-41.53,23.02Z"
+            fill={
+              selected === "chispe"
+                ? "rgba(220,38,38,0.6)"
+                : "rgba(220,38,38,0.3)"
+            }
+            stroke="red"
+            strokeWidth={1}
+          />
 
-      {/* ORELHAS */}
-      <path
-        id="Orelhas"
-        d="M57.37,69.41s-30.81,7.41-45.63-26.67c0,0,47.41-13.63,54.22,0,0,0,20.74,5.93,26.67.59,0,0,9.19,5.33,24-3.56,0,0,16.3,11.14,18.96,30.31,0,0-14.81,6.68-43.26-16.7,0,0-25.78-1.46-32,2.1,0,0-2.07-2.96-2.96,13.93Z"
-        fill="transparent"
-        stroke="red"
-        strokeWidth={2}
-        className="cursor-pointer hover:fill-red-500/30 transition-all duration-300"
-        onClick={() => onSelectPart("orelhas")}
-      />
+          <path
+            d="M226.94,252.58h-.04l-2.49,1.34-.37-1.47,3.12-1.67h1.65v14.3h-1.87v-12.5Z"
+            fill="#ffffff"
+          />
 
-      {/* CACHAÇO */}
-      <path
-        id="Cachaco"
-        d="M81.67,38.68c-2.2.17,15.7-16.76,105.19-9.94,0,0,13.04,7.74-5.63,9.94,0,0-26.04-5.54-99.56,0Z"
-        fill="transparent"
-        stroke="red"
-        strokeWidth={2}
-        className="cursor-pointer hover:fill-red-500/30 transition-all duration-300"
-        onClick={() => onSelectPart("cachaco")}
-      />
+          <path
+            d="M478.84,241.05h-.04l-2.49,1.34-.37-1.47,3.12-1.67h1.65v14.3h-1.87v-12.5Z"
+            fill="#ffffff"
+          />
+        </g>
+        <g
+          id="Perna"
+          data-section="perna"
+          className="section cursor-pointer"
+          onClick={handleClick}
+          style={{ pointerEvents: "all" }}
+        >
+          <path
+            d="M407.7,198.15s-57.7-39.4-15.49-143.91c0,0,48.68-7.49,62.47,6.81l45.45,16.85s61.28,72.51-13.79,133.79l-42.38,23.49s-14.3-18.38-16.34-25.02c0,0-10.21-3.06-19.91-12s0,0,0,0"
+            fill="rgba(220,38,38,0.3)"
+            stroke="red"
+            strokeWidth={1}
+          />
 
-      {/* PRESUNTO */}
-      <path
-        id="Presunto"
-        d="M429.85,258.3s5.93-39.7,6.81-67.85c0,0-21.63-42.37-60.74-85.93,0,0,76.44-86.52,92.44,21.63,0,0-26.67,12.15-13.04,37.63,0,0,5.33,9.19-1.78,29.93,0,0-6.22,26.07-5.33,48.59l-18.37,16Z"
-        fill="transparent"
-        stroke="red"
-        strokeWidth={2}
-        className="cursor-pointer hover:fill-red-500/30 transition-all duration-300"
-        onClick={() => onSelectPart("presunto")}
-      />
-    </svg>
+          <path
+            d="M435.45,146.57v-1.4l1.79-1.74c4.32-4.11,6.27-6.29,6.29-8.84,0-1.72-.83-3.3-3.35-3.3-1.53,0-2.81.78-3.59,1.43l-.73-1.61c1.17-.99,2.83-1.72,4.78-1.72,3.64,0,5.17,2.5,5.17,4.91,0,3.12-2.26,5.64-5.82,9.07l-1.35,1.25v.05h7.59v1.9h-10.79Z"
+            fill="#fff"
+          />
+        </g>
+        <g
+          id="Entremeada"
+          data-section="entremeada"
+          className="section cursor-pointer"
+          onClick={handleClick}
+          style={{ pointerEvents: "all" }}
+        >
+          <path
+            d="M303.53,144.02s12.77,28.09,6.13,70.98l38.3,2.04s7.66,7.91,19.15,1.28l40.6-20.17s-27.57-19.15-30.38-62.81l-73.79,8.68Z"
+            fill="rgba(220,38,38,0.3)"
+            stroke="red"
+            strokeWidth={1}
+          />
+
+          <path
+            d="M347.03,185.37c.65.42,2.16,1.07,3.74,1.07,2.94,0,3.85-1.87,3.82-3.28-.03-2.37-2.16-3.38-4.37-3.38h-1.27v-1.72h1.27c1.66,0,3.77-.86,3.77-2.86,0-1.35-.86-2.55-2.96-2.55-1.35,0-2.65.6-3.38,1.12l-.6-1.66c.88-.65,2.6-1.3,4.42-1.3,3.33,0,4.84,1.98,4.84,4.03,0,1.74-1.04,3.22-3.12,3.98v.05c2.08.42,3.77,1.98,3.77,4.34,0,2.7-2.11,5.07-6.16,5.07-1.9,0-3.56-.6-4.39-1.14l.62-1.77Z"
+            fill="#fff"
+          />
+        </g>
+        <g
+          id="Entrecosto"
+          data-section="entrecosto"
+          className="section cursor-pointer"
+          onClick={handleClick}
+          style={{ pointerEvents: "all" }}
+        >
+          <path
+            d="M309.66,215s7.15-33.96-6.13-70.98l-71.53,18.92s25.32,21.08,19.7,61.59c0,0,28.85-12.85,57.96-9.53Z"
+            fill="rgba(220,38,38,0.3)"
+            stroke="red"
+            strokeWidth={1}
+          />
+
+          <path
+            d="M280.03,194.7v-4.6h-7.85v-1.51l7.54-10.79h2.47v10.5h2.37v1.79h-2.37v4.6h-2.16ZM280.03,188.31v-5.64c0-.88.03-1.77.08-2.65h-.08c-.52.99-.94,1.72-1.4,2.5l-4.13,5.75v.05h5.54Z"
+            fill="#fff"
+          />
+        </g>
+        <g
+          id="Pá"
+          data-section="pa"
+          className="section cursor-pointer"
+          onClick={handleClick}
+          style={{ pointerEvents: "all" }}
+        >
+          <path
+            d="M168.13,242.83s17.19-12.6,32.17-14.13l5.45,7.06s19.74,6.81,34.72,4.43c0,0,.34-13.62,11.23-15.66,0,0,8.85-34.72-22.81-64.68,0,0-4.77-6.47-7.15-13.28,0,0-43.61,6.76-61.64,29.08"
+            fill="rgba(220,38,38,0.3)"
+            stroke="red"
+            strokeWidth={1}
+          />
+
+          <path
+            d="M211.67,190.49h-6.45l-.65,4.34c.39-.05.75-.1,1.38-.1,1.3,0,2.6.29,3.64.91,1.33.75,2.42,2.21,2.42,4.34,0,3.3-2.63,5.77-6.29,5.77-1.85,0-3.41-.52-4.21-1.04l.57-1.74c.7.42,2.08.94,3.61.94,2.16,0,4-1.4,4-3.67-.03-2.18-1.48-3.74-4.86-3.74-.96,0-1.72.1-2.34.18l1.09-8.11h8.09v1.92Z"
+            fill="#fff"
+          />
+        </g>
+        <g
+          id="Faceira"
+          data-section="faceira"
+          className="section cursor-pointer"
+          onClick={handleClick}
+          style={{ pointerEvents: "all" }}
+        >
+          <path
+            d="M108.89,155.95s40.85,31.74,31.49,97.61l27.74-10.72s12.94-58.38-36.43-111.49l-22.81,24.6Z"
+            fill="rgba(220,38,38,0.3)"
+            stroke="red"
+            strokeWidth={1}
+          />
+
+          <path
+            d="M153.67,184.37c-.47-.03-1.07,0-1.72.1-3.59.6-5.49,3.22-5.88,6.01h.08c.81-1.07,2.21-1.95,4.08-1.95,2.99,0,5.1,2.16,5.1,5.46,0,3.09-2.11,5.95-5.62,5.95s-5.98-2.81-5.98-7.2c0-3.33,1.2-5.95,2.86-7.62,1.4-1.38,3.28-2.24,5.41-2.5.68-.1,1.25-.13,1.66-.13v1.87ZM153.02,194.12c0-2.42-1.38-3.87-3.48-3.87-1.38,0-2.65.86-3.28,2.08-.16.26-.26.6-.26,1.01.05,2.78,1.33,4.84,3.72,4.84,1.98,0,3.3-1.64,3.3-4.06Z"
+            fill="#fff"
+          />
+        </g>
+        <g
+          id="Cachaço"
+          data-section="cachaco"
+          className="section cursor-pointer"
+          onClick={handleClick}
+          style={{ pointerEvents: "all" }}
+        >
+          <path
+            d="M160.11,175.66s12.7-19.72,61.64-29.08c0,0-29.7-48-20-61.11,0,0-44.6,15.49-70.04,45.87"
+            fill="rgba(220,38,38,0.3)"
+            stroke="red"
+            strokeWidth={1}
+          />
+
+          <path
+            d="M181.8,124.41v1.51l-7.36,15.39h-2.37l7.33-14.95v-.05h-8.27v-1.9h10.66Z"
+            fill="#fff"
+          />
+        </g>
+        <g
+          id="Lombo"
+          data-section="lombo"
+          className="section cursor-pointer"
+          onClick={handleClick}
+          style={{ pointerEvents: "all" }}
+        >
+          <path
+            d="M201.74,85.47s-9.06,11.31,20,61.11c0,0,4.17,12.05,10.26,16.37l71.53-18.92,73.79-8.68s-3.06-40.43,14.89-81.11c0,0-61.96-7.23-92.34,4.77,0,0-65.02,12.34-98.13,26.47Z"
+            fill="rgba(220,38,38,0.3)"
+            stroke="red"
+            strokeWidth={1}
+          />
+
+          <path
+            d="M293,106.51c0-2.13,1.27-3.64,3.35-4.52l-.03-.08c-1.87-.88-2.68-2.34-2.68-3.8,0-2.68,2.26-4.5,5.23-4.5,3.28,0,4.91,2.05,4.91,4.16,0,1.43-.7,2.96-2.78,3.95v.08c2.11.83,3.41,2.31,3.41,4.37,0,2.94-2.52,4.91-5.75,4.91-3.54,0-5.67-2.11-5.67-4.58ZM302.1,106.4c0-2.05-1.43-3.04-3.72-3.69-1.98.57-3.04,1.87-3.04,3.48-.08,1.72,1.22,3.22,3.38,3.22s3.38-1.27,3.38-3.02ZM295.81,97.95c0,1.69,1.27,2.6,3.22,3.12,1.46-.49,2.57-1.53,2.57-3.07,0-1.35-.81-2.76-2.86-2.76-1.9,0-2.94,1.25-2.94,2.7Z"
+            fill="#fff"
+          />
+        </g>
+      </svg>
+
+      {/* MODAL SIMPLES */}
+      {selected && (
+        <div
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50"
+          onClick={() => setSelected(null)}
+        >
+          <div
+            className="bg-[#1f1f1f] border border-red-600/30 rounded-2xl p-8 w-[92%] max-w-2xl shadow-2xl relative text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* close */}
+            <button
+              className="absolute top-4 right-4 text-white/70 hover:text-red-500 text-2xl transition"
+              onClick={() => setSelected(null)}
+            >
+              ✕
+            </button>
+
+            {/* title */}
+            <h2 className="text-3xl font-bold mb-5 text-red-500 tracking-wide capitalize">
+              {partInfo[selected]?.title ?? selected}
+            </h2>
+
+            {/* content */}
+            <p className="text-gray-300 leading-relaxed text-base mb-6">
+              {partInfo[selected]?.description ?? "Sem descrição disponível."}
+            </p>
+
+            {/* image dinâmica */}
+            <img
+              src={partInfo[selected]?.img}
+              alt={selected}
+              className="w-full h-[260px] object-cover rounded-xl border border-red-500/20 mb-6"
+            />
+
+            {/* fallback caso não exista imagem */}
+            {!partInfo[selected]?.img && (
+              <div className="w-full h-[260px] rounded-xl border border-red-500/20 bg-black/30 flex items-center justify-center text-gray-500">
+                Sem imagem definida
+              </div>
+            )}
+
+            {/* footer button */}
+            <button
+              className="px-5 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg transition w-full"
+              onClick={() => setSelected(null)}
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

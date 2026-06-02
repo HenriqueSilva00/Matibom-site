@@ -44,14 +44,21 @@ export default function CertificacoesPage() {
       </div>
 
       {/* HERO */}
-      <section className="relative z-10 pt-40 pb-24 px-6 text-center">
+      <section className="relative pt-28 md:pt-36 pb-24 px-6 text-center">
         <div className="max-w-5xl mx-auto">
           <span className="inline-flex items-center px-4 py-2 rounded-full bg-red-50 text-red-600 text-sm font-medium border border-red-100 mb-8">
             Qualidade • Segurança • Confiança
           </span>
-          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-gray-900 leading-tight">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-gray-900 leading-tight">
             Certificações
-          </h1>
+          </h2>
+
+          {/* divider */}
+          <div className="flex items-center justify-center mt-5 md:mt-6">
+            <div className="h-[2px] w-12 bg-gray-300 rounded-full" />
+            <div className="mx-3 w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+            <div className="h-[2px] w-12 bg-gray-300 rounded-full" />
+          </div>
 
           <p className="mt-6 text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
             A MATIBOM segue rigorosos padrões de qualidade e segurança

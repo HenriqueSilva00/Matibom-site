@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
@@ -17,6 +17,7 @@ export default function InstalacoesPage() {
 
   const [index, setIndex] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
+  const galleryRef = useRef<HTMLDivElement | null>(null);
 
   const nextImage = () => {
     setIndex((prev) => (prev + 1) % images.length);
@@ -29,42 +30,73 @@ export default function InstalacoesPage() {
   return (
     <main className="min-h-screen bg-[#f8f8f8] overflow-hidden">
       {/* HERO */}
-      <section className="pt-32 md:pt-36 pb-10 md:pb-14 px-6 text-center">
-        <div className="max-w-6xl mx-auto">
-          <span className="inline-flex items-center px-4 py-2 rounded-full bg-red-50 text-red-600 text-sm font-medium border border-red-100 mb-6">
+      <section className="relative pt-28 md:pt-36 pb-12 md:pb-16 px-6 text-center overflow-hidden bg-white">
+        <div className="relative max-w-6xl mx-auto">
+          {/* badge */}
+          <span className="inline-flex items-center px-4 py-2 rounded-full bg-gray-100 text-red-600 text-xs md:text-sm font-medium border border-gray-200 mb-6 tracking-wide">
             Infraestruturas • Tecnologia • Qualidade
           </span>
-          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-gray-900 leading-tight">
-            Instalações
-          </h1>
 
-          <p className="mt-6 text-lg md:text-xl text-gray-600 leading-relaxed max-w-5xl mx-auto">
+          {/* title (30px) */}
+          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
+            Instalações
+          </h2>
+
+          {/* divider */}
+          <div className="flex items-center justify-center mt-5 md:mt-6">
+            <div className="h-[2px] w-12 bg-gray-300 rounded-full" />
+            <div className="mx-3 w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+            <div className="h-[2px] w-12 bg-gray-300 rounded-full" />
+          </div>
+
+          {/* text (16px) */}
+          <p className="mt-6 text-[16px] text-gray-600 leading-relaxed max-w-4xl mx-auto">
             Conheça as instalações da MATIBOM, equipadas com tecnologia moderna,
             rigorosos padrões de higiene e uma infraestrutura preparada para
             garantir qualidade, segurança e eficiência em todos os processos de
             abate, desmancha, conservação, transformação e distribuição
             alimentar.
           </p>
+
+          {/* CTA */}
+          <div className="mt-8 flex justify-center">
+            <button
+              onClick={() =>
+                galleryRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "center",
+                })
+              }
+              className="px-6 py-3 rounded-full bg-red-600 hover:bg-red-500 text-white font-medium transition shadow-md"
+            >
+              Explorar instalações
+            </button>
+          </div>
         </div>
       </section>
 
       {/* GALLERY */}
-      <section className="w-full flex justify-center px-4 md:px-10 pb-24">
+      <section
+        ref={galleryRef}
+        className="w-full bg-black flex justify-center pb-0"
+      >
         <div
           className="
-            relative
-            w-full
-            lg:w-[75%]
-            h-[60vh]
-            md:h-[70vh]
-            lg:h-[80vh]
-            rounded-[32px]
-            overflow-hidden
-            shadow-2xl
-            bg-black
-            group
-          "
+      relative
+      w-full
+      lg:w-[75%]
+      h-[60vh]
+      md:h-[70vh]
+      lg:h-[80vh]
+      rounded-none md:rounded-[32px]
+      overflow-hidden
+      shadow-2xl
+      bg-black
+      group
+    "
         >
+          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
           {/* IMAGE */}
           <AnimatePresence mode="wait">
             <motion.div
